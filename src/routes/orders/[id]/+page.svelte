@@ -37,7 +37,7 @@
 </svelte:head>
 
 <div class="px-8 py-8">
-	<div class="mx-auto max-w-3xl">
+	<div class="mx-auto">
 		<a
 			href={resolve('/orders')}
 			class="mb-4 inline-block text-sm text-zinc-500 transition hover:text-accent-700"

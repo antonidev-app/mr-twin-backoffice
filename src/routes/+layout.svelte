@@ -24,9 +24,9 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 {#if auth.isLoggedIn && page.url.pathname !== '/login'}
-	<div class="flex min-h-screen bg-zinc-50">
+	<div class="flex h-screen overflow-hidden bg-zinc-50">
 		<aside class="flex w-56 shrink-0 flex-col border-r border-zinc-200 bg-white">
-			<div class="flex items-center gap-2 border-b border-zinc-200 px-4 py-4">
+			<div class="flex shrink-0 items-center gap-2 border-b border-zinc-200 px-4 py-4">
 				<span
 					class="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-900 text-xs font-bold tracking-tight text-white"
 				>
@@ -35,7 +35,7 @@
 				<span class="text-sm font-semibold tracking-tight text-zinc-900">Mr. Twin Admin</span>
 			</div>
 
-			<nav class="flex-1 space-y-1 p-3 text-sm">
+			<nav class="min-h-0 flex-1 space-y-1 overflow-y-auto p-3 text-sm">
 				{#each navItems as item (item.href)}
 					<a
 						href={item.href}
@@ -49,7 +49,7 @@
 				{/each}
 			</nav>
 
-			<div class="border-t border-zinc-200 p-3">
+			<div class="shrink-0 border-t border-zinc-200 p-3">
 				<p class="truncate px-3 text-xs text-zinc-500">{auth.user?.email}</p>
 				<button
 					onclick={handleLogout}

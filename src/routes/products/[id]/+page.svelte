@@ -2,7 +2,8 @@
 	import { resolve } from '$app/paths';
 	import { ApiError } from '$lib/api/client';
 	import { deleteImage, update, uploadImage } from '$lib/api/products';
-	import { formatPrice } from '$lib/format';
+	import Badge from '$lib/components/Badge.svelte';
+	import { formatPrice, publishedClass } from '$lib/format';
 	import { auth } from '$lib/stores/auth.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
 	import type { PageProps } from './$types';
@@ -94,13 +95,23 @@
 </svelte:head>
 
 <div class="px-8 py-8">
-	<div class="mx-auto max-w-3xl">
+	<div class="mx-auto">
 		<a
 			href={resolve('/products')}
 			class="mb-4 inline-block text-sm text-zinc-500 transition hover:text-accent-700"
 		>
 			&larr; Kembali ke Produk
 		</a>
+
+		<div class="mb-6 flex items-start justify-between gap-4">
+			<div>
+				<h1 class="mb-1 text-2xl font-semibold tracking-tight text-zinc-900">{product.name}</h1>
+				<p class="font-mono text-sm text-zinc-500">SKU {product.sku ?? '—'}</p>
+			</div>
+			<Badge class={publishedClass(product.product_display?.is_published ?? false)}>
+				{product.product_display?.is_published ? 'Published' : 'Draft'}
+			</Badge>
+		</div>
 
 		<div class="mb-6 rounded-lg bg-white p-5">
 			<h2 class="mb-3 text-sm font-semibold text-zinc-700">Data Accurate (read-only)</h2>
