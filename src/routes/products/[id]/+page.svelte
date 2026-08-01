@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { ApiError } from '$lib/api/client';
-	import { deleteImage, update, uploadImage } from '$lib/api/products';
+	import { aiDraft, deleteImage, update, uploadImage } from '$lib/api/products';
 	import Badge from '$lib/components/Badge.svelte';
 	import { formatPrice, publishedClass } from '$lib/format';
 	import { auth } from '$lib/stores/auth.svelte';
@@ -24,6 +24,8 @@
 	let sortOrder = $state(0);
 	let saving = $state(false);
 	let uploading = $state(false);
+	let drafting = $state(false);
+	let aiSources = $state<string[] | null>(null);
 
 	$effect(() => {
 		const curation = product.product_display;
@@ -53,11 +55,29 @@
 				auth.token!
 			);
 			product = result.data;
+			aiSources = null;
 			toast.show('Perubahan disimpan.');
 		} catch (err) {
 			toast.show(err instanceof ApiError ? err.message : 'Gagal menyimpan perubahan.', 'error');
 		} finally {
 			saving = false;
+		}
+	}
+
+	async function runAiDraft() {
+		drafting = true;
+		try {
+			const draft = await aiDraft(product.id, auth.token!);
+			displayName = draft.display_name;
+			description = draft.description;
+			displayCategory = draft.display_category;
+			brand = draft.brand;
+			aiSources = draft.sources;
+			toast.show('Draft AI siap, review sebelum menyimpan.');
+		} catch (err) {
+			toast.show(err instanceof ApiError ? err.message : 'Gagal menghasilkan draft AI.', 'error');
+		} finally {
+			drafting = false;
 		}
 	}
 
@@ -146,7 +166,17 @@
 		</div>
 
 		<form onsubmit={save} class="mb-6 space-y-4 rounded-lg bg-white p-5">
-			<h2 class="text-sm font-semibold text-zinc-700">Kurasi Storefront</h2>
+			<div class="flex items-center justify-between gap-4">
+				<h2 class="text-sm font-semibold text-zinc-700">Kurasi Storefront</h2>
+				<button
+					type="button"
+					disabled={drafting}
+					onclick={runAiDraft}
+					class="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50"
+				>
+					{drafting ? 'Menghasilkan draft...' : '✨ Draft dengan AI'}
+				</button>
+			</div>
 
 			<label class="flex items-center gap-2 text-sm text-zinc-700">
 				<input type="checkbox" bind:checked={isPublished} class="accent-accent-600" />
@@ -172,10 +202,19 @@
 				>
 				<textarea
 					id="description"
-					rows="3"
+					rows="7"
 					bind:value={description}
 					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 				></textarea>
+				{#if aiSources && aiSources.length > 0}
+					<div class="mt-1 text-xs text-zinc-500">
+						Sumber referensi AI:
+						{#each aiSources as url, i (url)}
+							<!-- prettier-ignore -->
+							{i > 0 ? ', ' : ' '}<a href={url} target="_blank" rel="noopener noreferrer" class="underline hover:text-accent-700">{url}</a><!-- eslint-disable-line svelte/no-navigation-without-resolve -- external AI-supplied source URL, not a SvelteKit route -->
+						{/each}
+					</div>
+				{/if}
 			</div>
 
 			<div class="grid grid-cols-2 gap-4">

@@ -36,6 +36,14 @@ export type ProductCuration = {
 	sort_order: number;
 };
 
+export type AiDraft = {
+	display_name: string;
+	description: string;
+	display_category: string;
+	brand: string;
+	sources: string[];
+};
+
 export type AdminProduct = {
 	id: number;
 	accurate_id: number;

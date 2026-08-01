@@ -1,5 +1,5 @@
 import { apiFetch } from './client';
-import type { AdminProduct, Paginated } from './types';
+import type { AdminProduct, AiDraft, Paginated } from './types';
 
 export type ProductFilters = {
 	q?: string;
@@ -39,6 +39,14 @@ export function update(
 	return apiFetch<{ data: AdminProduct }>(`/api/admin/products/${id}`, {
 		method: 'PUT',
 		body: payload,
+		token,
+		fetch: fetchFn
+	});
+}
+
+export function aiDraft(id: number | string, token: string, fetchFn?: typeof fetch) {
+	return apiFetch<AiDraft>(`/api/admin/products/${id}/ai-draft`, {
+		method: 'POST',
 		token,
 		fetch: fetchFn
 	});
