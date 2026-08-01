@@ -76,10 +76,10 @@
 	<title>Dashboard — Mr. Twin Admin</title>
 </svelte:head>
 
-<div class="mx-auto max-w-4xl space-y-6 px-6 py-6">
-	<h1 class="text-2xl font-bold tracking-tight text-zinc-900">Dashboard</h1>
+<div class="space-y-6 px-8 py-8">
+	<h1 class="text-2xl font-semibold tracking-tight text-zinc-900">Dashboard</h1>
 
-	<section class="rounded-xl border border-zinc-200 p-5">
+	<section class="rounded-lg bg-white p-5">
 		<h2 class="mb-4 text-sm font-semibold text-zinc-700">Koneksi Accurate</h2>
 
 		<div class="mb-4 grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
@@ -110,14 +110,14 @@
 				href="{PUBLIC_API_BASE_URL}/accurate/connect"
 				target="_blank"
 				rel="noopener noreferrer external"
-				class="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+				class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98]"
 			>
 				Hubungkan ke Accurate
 			</a>
 			<button
 				onclick={loadDatabases}
 				disabled={loadingDatabases}
-				class="rounded-md border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50"
+				class="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50"
 			>
 				{loadingDatabases ? 'Memuat...' : 'Muat Daftar Database'}
 			</button>
@@ -129,14 +129,12 @@
 		{#if databases}
 			<div class="mt-4 space-y-2">
 				{#each databases as db (db.id)}
-					<div
-						class="flex items-center justify-between rounded-md border border-zinc-200 p-3 text-sm"
-					>
+					<div class="flex items-center justify-between rounded-lg bg-zinc-50 p-3 text-sm">
 						<span class="font-medium text-zinc-800">{db.alias}</span>
 						<button
 							onclick={() => pickDatabase(db)}
 							disabled={selecting}
-							class="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+							class="rounded-lg bg-accent-400 px-3 py-1.5 text-xs font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
 						>
 							Pilih
 						</button>
@@ -146,17 +144,21 @@
 		{/if}
 	</section>
 
-	<section class="rounded-xl border border-zinc-200 p-5">
+	<section class="rounded-lg bg-white p-5">
 		<h2 class="mb-4 text-sm font-semibold text-zinc-700">Sinkronisasi Data</h2>
 
 		<div class="mb-4 grid grid-cols-2 gap-4 text-sm">
-			<div class="rounded-md bg-zinc-50 p-3">
+			<div class="rounded-lg bg-zinc-50 p-3">
 				<p class="text-xs text-zinc-500">Total Item Tersinkron</p>
-				<p class="text-lg font-semibold text-zinc-900">{data.syncStatus.items.total}</p>
+				<p class="font-mono text-lg font-semibold text-zinc-900 tabular-nums">
+					{data.syncStatus.items.total}
+				</p>
 			</div>
-			<div class="rounded-md bg-zinc-50 p-3">
+			<div class="rounded-lg bg-zinc-50 p-3">
 				<p class="text-xs text-zinc-500">Total Kategori Tersinkron</p>
-				<p class="text-lg font-semibold text-zinc-900">{data.syncStatus.categories.total}</p>
+				<p class="font-mono text-lg font-semibold text-zinc-900 tabular-nums">
+					{data.syncStatus.categories.total}
+				</p>
 			</div>
 		</div>
 
@@ -164,14 +166,14 @@
 			<button
 				onclick={runTriggerItems}
 				disabled={triggeringItems}
-				class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+				class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
 			>
 				{triggeringItems ? 'Menjadwalkan...' : 'Sync Item Sekarang'}
 			</button>
 			<button
 				onclick={runTriggerCategories}
 				disabled={triggeringCategories}
-				class="rounded-md border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50"
+				class="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50"
 			>
 				{triggeringCategories ? 'Menjadwalkan...' : 'Sync Kategori Sekarang'}
 			</button>
@@ -200,7 +202,7 @@
 								<td class="py-2">
 									<Badge class={syncStatusClass(log.status)}>{log.status}</Badge>
 								</td>
-								<td class="py-2">{log.synced_count ?? '—'}</td>
+								<td class="py-2 font-mono tabular-nums">{log.synced_count ?? '—'}</td>
 								<td class="py-2 text-zinc-500">{formatDate(log.started_at)}</td>
 							</tr>
 						{/each}

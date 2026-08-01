@@ -1,1 +1,30 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/outfit';
+@import '@fontsource-variable/jetbrains-mono';
+
+@theme {
+	--font-sans: 'Outfit Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', monospace;
+
+	--color-accent-50: #fffbeb;
+	--color-accent-100: #fef3c7;
+	--color-accent-200: #fde68a;
+	--color-accent-300: #fcd34d;
+	--color-accent-400: #fbbf24;
+	--color-accent-500: #f59e0b;
+	--color-accent-600: #d97706;
+	--color-accent-700: #b45309;
+	--color-accent-800: #92400e;
+	--color-accent-900: #78350f;
+}
+
+body {
+	font-family: var(--font-sans);
+	text-wrap: pretty;
+}
+
+h1,
+h2,
+h3 {
+	text-wrap: pretty;
+}

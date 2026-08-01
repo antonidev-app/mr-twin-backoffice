@@ -93,160 +93,163 @@
 	<title>{product.name} — Mr. Twin Admin</title>
 </svelte:head>
 
-<div class="mx-auto max-w-3xl px-6 py-6">
-	<a
-		href={resolve('/products')}
-		class="mb-4 inline-block text-sm text-zinc-500 hover:text-zinc-700"
-	>
-		&larr; Kembali ke Produk
-	</a>
+<div class="px-8 py-8">
+	<div class="mx-auto max-w-3xl">
+		<a
+			href={resolve('/products')}
+			class="mb-4 inline-block text-sm text-zinc-500 transition hover:text-accent-700"
+		>
+			&larr; Kembali ke Produk
+		</a>
 
-	<div class="mb-6 rounded-xl border border-zinc-200 p-5">
-		<h2 class="mb-3 text-sm font-semibold text-zinc-700">Data Accurate (read-only)</h2>
-		<div class="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
-			<div>
-				<p class="text-xs text-zinc-500">Nama</p>
-				<p class="font-medium text-zinc-900">{product.name}</p>
-			</div>
-			<div>
-				<p class="text-xs text-zinc-500">SKU</p>
-				<p class="font-medium text-zinc-900">{product.sku ?? '—'}</p>
-			</div>
-			<div>
-				<p class="text-xs text-zinc-500">Harga</p>
-				<p class="font-medium text-zinc-900">{formatPrice(product.unit_price)}</p>
-			</div>
-			<div>
-				<p class="text-xs text-zinc-500">Stok</p>
-				<p class="font-medium text-zinc-900">{product.stock}</p>
-			</div>
-			<div>
-				<p class="text-xs text-zinc-500">Tipe</p>
-				<p class="font-medium text-zinc-900">{product.item_type ?? '—'}</p>
-			</div>
-			<div>
-				<p class="text-xs text-zinc-500">Suspended</p>
-				<p class="font-medium text-zinc-900">{product.suspended ? 'Ya' : 'Tidak'}</p>
+		<div class="mb-6 rounded-lg bg-white p-5">
+			<h2 class="mb-3 text-sm font-semibold text-zinc-700">Data Accurate (read-only)</h2>
+			<div class="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
+				<div>
+					<p class="text-xs text-zinc-500">Nama</p>
+					<p class="font-medium text-zinc-900">{product.name}</p>
+				</div>
+				<div>
+					<p class="text-xs text-zinc-500">SKU</p>
+					<p class="font-mono font-medium text-zinc-900">{product.sku ?? '—'}</p>
+				</div>
+				<div>
+					<p class="text-xs text-zinc-500">Harga</p>
+					<p class="font-mono font-medium text-zinc-900 tabular-nums">
+						{formatPrice(product.unit_price)}
+					</p>
+				</div>
+				<div>
+					<p class="text-xs text-zinc-500">Stok</p>
+					<p class="font-mono font-medium text-zinc-900 tabular-nums">{product.stock}</p>
+				</div>
+				<div>
+					<p class="text-xs text-zinc-500">Tipe</p>
+					<p class="font-medium text-zinc-900">{product.item_type ?? '—'}</p>
+				</div>
+				<div>
+					<p class="text-xs text-zinc-500">Suspended</p>
+					<p class="font-medium text-zinc-900">{product.suspended ? 'Ya' : 'Tidak'}</p>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<form onsubmit={save} class="mb-6 space-y-4 rounded-xl border border-zinc-200 p-5">
-		<h2 class="text-sm font-semibold text-zinc-700">Kurasi Storefront</h2>
+		<form onsubmit={save} class="mb-6 space-y-4 rounded-lg bg-white p-5">
+			<h2 class="text-sm font-semibold text-zinc-700">Kurasi Storefront</h2>
 
-		<label class="flex items-center gap-2 text-sm text-zinc-700">
-			<input type="checkbox" bind:checked={isPublished} class="accent-blue-600" />
-			Tampilkan di storefront (published)
-		</label>
+			<label class="flex items-center gap-2 text-sm text-zinc-700">
+				<input type="checkbox" bind:checked={isPublished} class="accent-accent-600" />
+				Tampilkan di storefront (published)
+			</label>
 
-		<div>
-			<label for="display_name" class="mb-1 block text-sm font-medium text-zinc-700"
-				>Nama Tampilan (opsional)</label
-			>
-			<input
-				id="display_name"
-				type="text"
-				bind:value={displayName}
-				placeholder={product.name}
-				class="w-full rounded-md border border-zinc-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-			/>
-		</div>
-
-		<div>
-			<label for="description" class="mb-1 block text-sm font-medium text-zinc-700">Deskripsi</label
-			>
-			<textarea
-				id="description"
-				rows="3"
-				bind:value={description}
-				class="w-full rounded-md border border-zinc-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-			></textarea>
-		</div>
-
-		<div class="grid grid-cols-2 gap-4">
 			<div>
-				<label for="display_category" class="mb-1 block text-sm font-medium text-zinc-700"
-					>Kategori Storefront</label
+				<label for="display_name" class="mb-1 block text-sm font-medium text-zinc-700"
+					>Nama Tampilan (opsional)</label
 				>
 				<input
-					id="display_category"
+					id="display_name"
 					type="text"
-					bind:value={displayCategory}
-					class="w-full rounded-md border border-zinc-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+					bind:value={displayName}
+					placeholder={product.name}
+					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 				/>
 			</div>
+
 			<div>
-				<label for="brand" class="mb-1 block text-sm font-medium text-zinc-700">Brand</label>
+				<label for="description" class="mb-1 block text-sm font-medium text-zinc-700"
+					>Deskripsi</label
+				>
+				<textarea
+					id="description"
+					rows="3"
+					bind:value={description}
+					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+				></textarea>
+			</div>
+
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="display_category" class="mb-1 block text-sm font-medium text-zinc-700"
+						>Kategori Storefront</label
+					>
+					<input
+						id="display_category"
+						type="text"
+						bind:value={displayCategory}
+						class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+					/>
+				</div>
+				<div>
+					<label for="brand" class="mb-1 block text-sm font-medium text-zinc-700">Brand</label>
+					<input
+						id="brand"
+						type="text"
+						bind:value={brand}
+						class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+					/>
+				</div>
+			</div>
+
+			<div>
+				<label for="sort_order" class="mb-1 block text-sm font-medium text-zinc-700"
+					>Urutan Tampil</label
+				>
 				<input
-					id="brand"
-					type="text"
-					bind:value={brand}
-					class="w-full rounded-md border border-zinc-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+					id="sort_order"
+					type="number"
+					bind:value={sortOrder}
+					class="w-32 rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 				/>
 			</div>
-		</div>
 
-		<div>
-			<label for="sort_order" class="mb-1 block text-sm font-medium text-zinc-700"
-				>Urutan Tampil</label
+			<button
+				type="submit"
+				disabled={saving}
+				class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
 			>
-			<input
-				id="sort_order"
-				type="number"
-				bind:value={sortOrder}
-				class="w-32 rounded-md border border-zinc-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-			/>
+				{saving ? 'Menyimpan...' : 'Simpan Perubahan'}
+			</button>
+		</form>
+
+		<div class="rounded-lg bg-white p-5">
+			<h2 class="mb-3 text-sm font-semibold text-zinc-700">Gambar Produk</h2>
+
+			{#if product.product_display && product.product_display.images.length > 0}
+				<div class="mb-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+					{#each product.product_display.images as url (url)}
+						<div class="group relative aspect-square overflow-hidden rounded-lg bg-zinc-100">
+							<img src={url} alt={product.name} class="h-full w-full object-cover" />
+							<button
+								onclick={() => removeImage(url)}
+								class="absolute top-1 right-1 rounded-full bg-zinc-900/70 p-1 text-white opacity-0 transition group-hover:opacity-100"
+								aria-label="Hapus gambar"
+							>
+								<svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+									<path
+										d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
+									/>
+								</svg>
+							</button>
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<p class="mb-4 text-sm text-zinc-500">Belum ada gambar.</p>
+			{/if}
+
+			<label class="block text-sm font-medium text-zinc-700">
+				Tambah gambar
+				<input
+					type="file"
+					accept="image/*"
+					disabled={uploading}
+					onchange={handleUpload}
+					class="mt-1 block w-full text-sm text-zinc-600"
+				/>
+			</label>
+			{#if uploading}
+				<p class="mt-1 text-xs text-zinc-500">Mengunggah...</p>
+			{/if}
 		</div>
-
-		<button
-			type="submit"
-			disabled={saving}
-			class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
-		>
-			{saving ? 'Menyimpan...' : 'Simpan Perubahan'}
-		</button>
-	</form>
-
-	<div class="rounded-xl border border-zinc-200 p-5">
-		<h2 class="mb-3 text-sm font-semibold text-zinc-700">Gambar Produk</h2>
-
-		{#if product.product_display && product.product_display.images.length > 0}
-			<div class="mb-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
-				{#each product.product_display.images as url (url)}
-					<div
-						class="group relative aspect-square overflow-hidden rounded-md border border-zinc-200 bg-zinc-100"
-					>
-						<img src={url} alt={product.name} class="h-full w-full object-cover" />
-						<button
-							onclick={() => removeImage(url)}
-							class="absolute top-1 right-1 rounded-full bg-zinc-900/70 p-1 text-white opacity-0 group-hover:opacity-100"
-							aria-label="Hapus gambar"
-						>
-							<svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-								<path
-									d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
-								/>
-							</svg>
-						</button>
-					</div>
-				{/each}
-			</div>
-		{:else}
-			<p class="mb-4 text-sm text-zinc-500">Belum ada gambar.</p>
-		{/if}
-
-		<label class="block text-sm font-medium text-zinc-700">
-			Tambah gambar
-			<input
-				type="file"
-				accept="image/*"
-				disabled={uploading}
-				onchange={handleUpload}
-				class="mt-1 block w-full text-sm text-zinc-600"
-			/>
-		</label>
-		{#if uploading}
-			<p class="mt-1 text-xs text-zinc-500">Mengunggah...</p>
-		{/if}
 	</div>
 </div>

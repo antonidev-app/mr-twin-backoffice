@@ -42,14 +42,11 @@
 	<title>Produk — Mr. Twin Admin</title>
 </svelte:head>
 
-<div class="mx-auto max-w-5xl px-6 py-6">
-	<h1 class="mb-1 text-2xl font-bold tracking-tight text-zinc-900">Produk</h1>
+<div class="px-8 py-8">
+	<h1 class="mb-1 text-2xl font-semibold tracking-tight text-zinc-900">Produk</h1>
 	<p class="mb-6 text-sm text-zinc-500">{data.products.meta.total} item tersinkron dari Accurate</p>
 
-	<form
-		onsubmit={applyFilters}
-		class="mb-6 flex flex-wrap items-end gap-3 rounded-xl border border-zinc-200 p-4"
-	>
+	<form onsubmit={applyFilters} class="mb-6 flex flex-wrap items-end gap-3 rounded-lg bg-white p-4">
 		<div class="flex-1 basis-48">
 			<label for="q" class="mb-1 block text-xs font-medium text-zinc-500">Cari</label>
 			<input
@@ -57,7 +54,7 @@
 				type="text"
 				placeholder="Nama atau SKU..."
 				bind:value={q}
-				class="w-full rounded-md border border-zinc-200 px-3 py-2 text-sm"
+				class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 			/>
 		</div>
 		<div>
@@ -65,7 +62,7 @@
 			<select
 				id="is_published"
 				bind:value={isPublished}
-				class="rounded-md border border-zinc-200 px-3 py-2 text-sm"
+				class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 			>
 				<option value="">Semua</option>
 				<option value="true">Published</option>
@@ -73,12 +70,12 @@
 			</select>
 		</div>
 		<label class="flex items-center gap-2 pb-2 text-sm text-zinc-700">
-			<input type="checkbox" bind:checked={suspended} class="accent-blue-600" />
+			<input type="checkbox" bind:checked={suspended} class="accent-accent-600" />
 			Suspended saja
 		</label>
 		<button
 			type="submit"
-			class="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+			class="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 active:scale-[0.98]"
 		>
 			Terapkan
 		</button>
@@ -87,7 +84,7 @@
 	{#if data.products.data.length === 0}
 		<p class="text-sm text-zinc-500">Tidak ada produk ditemukan.</p>
 	{:else}
-		<div class="overflow-x-auto rounded-xl border border-zinc-200">
+		<div class="overflow-x-auto rounded-lg bg-white">
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-zinc-200 bg-zinc-50 text-xs text-zinc-500">
@@ -102,11 +99,13 @@
 				</thead>
 				<tbody>
 					{#each data.products.data as product (product.id)}
-						<tr class="border-b border-zinc-100 last:border-0">
+						<tr class="border-b border-zinc-100 transition last:border-0 hover:bg-zinc-50">
 							<td class="max-w-xs truncate px-4 py-3 font-medium text-zinc-800">{product.name}</td>
-							<td class="px-4 py-3 text-zinc-500">{product.sku ?? '—'}</td>
-							<td class="px-4 py-3 text-zinc-700">{formatPrice(product.unit_price)}</td>
-							<td class="px-4 py-3 text-zinc-700">{product.stock}</td>
+							<td class="px-4 py-3 font-mono text-zinc-500">{product.sku ?? '—'}</td>
+							<td class="px-4 py-3 font-mono text-zinc-700 tabular-nums"
+								>{formatPrice(product.unit_price)}</td
+							>
+							<td class="px-4 py-3 font-mono text-zinc-700 tabular-nums">{product.stock}</td>
 							<td class="px-4 py-3 text-zinc-500"
 								>{product.product_display?.display_category ?? '—'}</td
 							>
@@ -118,7 +117,7 @@
 							<td class="px-4 py-3 text-right">
 								<a
 									href={resolve('/products/[id]', { id: String(product.id) })}
-									class="text-sm font-medium text-blue-600 hover:underline"
+									class="text-sm font-medium text-accent-700 hover:underline"
 								>
 									Edit
 								</a>

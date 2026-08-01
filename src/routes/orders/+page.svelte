@@ -29,18 +29,18 @@
 	<title>Pesanan — Mr. Twin Admin</title>
 </svelte:head>
 
-<div class="mx-auto max-w-5xl px-6 py-6">
-	<h1 class="mb-1 text-2xl font-bold tracking-tight text-zinc-900">Pesanan</h1>
+<div class="px-8 py-8">
+	<h1 class="mb-1 text-2xl font-semibold tracking-tight text-zinc-900">Pesanan</h1>
 	<p class="mb-6 text-sm text-zinc-500">{data.orders.meta.total} pesanan</p>
 
-	<div class="mb-6 flex items-end gap-3 rounded-xl border border-zinc-200 p-4">
+	<div class="mb-6 flex items-end gap-3 rounded-lg bg-white p-4">
 		<div>
 			<label for="status" class="mb-1 block text-xs font-medium text-zinc-500">Status</label>
 			<select
 				id="status"
 				bind:value={status}
 				onchange={applyFilters}
-				class="rounded-md border border-zinc-200 px-3 py-2 text-sm"
+				class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 			>
 				<option value="">Semua</option>
 				<option value="pending">Pending</option>
@@ -53,7 +53,7 @@
 	{#if data.orders.data.length === 0}
 		<p class="text-sm text-zinc-500">Belum ada pesanan.</p>
 	{:else}
-		<div class="overflow-x-auto rounded-xl border border-zinc-200">
+		<div class="overflow-x-auto rounded-lg bg-white">
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-zinc-200 bg-zinc-50 text-xs text-zinc-500">
@@ -66,11 +66,13 @@
 				</thead>
 				<tbody>
 					{#each data.orders.data as order (order.id)}
-						<tr class="cursor-pointer border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
+						<tr
+							class="cursor-pointer border-b border-zinc-100 transition last:border-0 hover:bg-zinc-50"
+						>
 							<td class="px-4 py-3">
 								<a
 									href={resolve('/orders/[id]', { id: String(order.id) })}
-									class="font-medium text-blue-600 hover:underline"
+									class="font-mono font-medium text-accent-700 hover:underline"
 								>
 									{order.order_number}
 								</a>
@@ -79,7 +81,9 @@
 								{order.customer.name}
 								<span class="block text-xs text-zinc-500">{order.customer.email}</span>
 							</td>
-							<td class="px-4 py-3 text-zinc-700">{formatPrice(order.total_amount)}</td>
+							<td class="px-4 py-3 font-mono text-zinc-700 tabular-nums"
+								>{formatPrice(order.total_amount)}</td
+							>
 							<td class="px-4 py-3">
 								<Badge class={orderStatusClass(order.status)}>{order.status}</Badge>
 							</td>

@@ -18,6 +18,7 @@ cp .env.example .env
 ```
 
 `.env`:
+
 ```
 PUBLIC_API_BASE_URL=http://localhost:8000
 ```
@@ -36,16 +37,16 @@ The same `+layout.ts` also does the auth guard (redirect to `/login` if logged o
 
 ## Pages
 
-| Route | Purpose |
-|---|---|
-| `/login` | Admin login |
-| `/` | Dashboard — Accurate connection status, database picker, sync triggers, recent sync log |
-| `/products` | All synced items (published or not), filter by search/published/suspended |
+| Route            | Purpose                                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `/login`         | Admin login                                                                                              |
+| `/`              | Dashboard — Accurate connection status, database picker, sync triggers, recent sync log                  |
+| `/products`      | All synced items (published or not), filter by search/published/suspended                                |
 | `/products/[id]` | Curate one item: publish toggle, display name/description/category/brand/sort order, image upload/delete |
-| `/orders` | All orders across all customers, filter by status |
-| `/orders/[id]` | Order + customer + items, change status (pending/completed/cancelled) |
+| `/orders`        | All orders across all customers, filter by status                                                        |
+| `/orders/[id]`   | Order + customer + items, change status (pending/completed/cancelled)                                    |
 
-"Connect to Accurate" on the dashboard just links to `{PUBLIC_API_BASE_URL}/accurate/connect` in a new tab — that flow is a full-page browser redirect through Accurate's own login and back to the *backend*, not this app (see `mr-twin-backend`'s README for why). Come back and click "Muat Daftar Database" once it's done.
+"Connect to Accurate" on the dashboard just links to `{PUBLIC_API_BASE_URL}/accurate/connect` in a new tab — that flow is a full-page browser redirect through Accurate's own login and back to the _backend_, not this app (see `mr-twin-backend`'s README for why). Come back and click "Muat Daftar Database" once it's done.
 
 ## API client (`src/lib/api/`)
 

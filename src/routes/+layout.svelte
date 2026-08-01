@@ -24,18 +24,24 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 {#if auth.isLoggedIn && page.url.pathname !== '/login'}
-	<div class="flex min-h-screen">
+	<div class="flex min-h-screen bg-zinc-50">
 		<aside class="flex w-56 shrink-0 flex-col border-r border-zinc-200 bg-white">
-			<div class="border-b border-zinc-200 px-4 py-4">
-				<span class="text-lg font-bold tracking-tight text-zinc-900">Mr. Twin Admin</span>
+			<div class="flex items-center gap-2 border-b border-zinc-200 px-4 py-4">
+				<span
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-900 text-xs font-bold tracking-tight text-white"
+				>
+					MT
+				</span>
+				<span class="text-sm font-semibold tracking-tight text-zinc-900">Mr. Twin Admin</span>
 			</div>
 
 			<nav class="flex-1 space-y-1 p-3 text-sm">
 				{#each navItems as item (item.href)}
 					<a
 						href={item.href}
-						class="block rounded-md px-3 py-2 font-medium {page.url.pathname === item.href
-							? 'bg-zinc-900 text-white'
+						class="block rounded-lg px-3 py-2 font-medium transition active:scale-[0.98] {page.url
+							.pathname === item.href
+							? 'bg-accent-50 text-accent-800'
 							: 'text-zinc-700 hover:bg-zinc-100'}"
 					>
 						{item.label}
@@ -47,7 +53,7 @@
 				<p class="truncate px-3 text-xs text-zinc-500">{auth.user?.email}</p>
 				<button
 					onclick={handleLogout}
-					class="mt-1 w-full rounded-md px-3 py-2 text-left text-sm font-medium text-zinc-700 hover:bg-zinc-100"
+					class="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 active:scale-[0.98]"
 				>
 					Logout
 				</button>

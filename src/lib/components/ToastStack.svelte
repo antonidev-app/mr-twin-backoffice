@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fly } from 'svelte/transition';
 	import { toast } from '$lib/stores/toast.svelte';
 </script>
 
@@ -7,6 +8,7 @@
 >
 	{#each toast.items as item (item.id)}
 		<div
+			transition:fly|local={{ y: 16, duration: 200 }}
 			class="pointer-events-auto flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg {item.variant ===
 			'success'
 				? 'bg-zinc-900'
