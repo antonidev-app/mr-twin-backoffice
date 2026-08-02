@@ -12,6 +12,8 @@ export function formatDate(value: string): string {
 
 const ORDER_STATUS_STYLES: Record<string, string> = {
 	pending: 'bg-accent-50 text-accent-800',
+	processing: 'bg-blue-50 text-blue-700',
+	shipped: 'bg-purple-50 text-purple-700',
 	completed: 'bg-green-50 text-green-700',
 	cancelled: 'bg-red-50 text-red-600'
 };

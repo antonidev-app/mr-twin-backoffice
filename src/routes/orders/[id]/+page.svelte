@@ -94,6 +94,8 @@
 						class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
 					>
 						<option value="pending">Pending</option>
+						<option value="processing">Processing</option>
+						<option value="shipped">Shipped</option>
 						<option value="completed">Completed</option>
 						<option value="cancelled">Cancelled</option>
 					</select>
