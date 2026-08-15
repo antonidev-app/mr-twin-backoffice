@@ -22,6 +22,17 @@ export function orderStatusClass(status: string): string {
 	return ORDER_STATUS_STYLES[status] ?? 'bg-zinc-100 text-zinc-600';
 }
 
+const PAYMENT_STATUS_STYLES: Record<string, string> = {
+	unpaid: 'bg-accent-50 text-accent-800',
+	paid: 'bg-green-50 text-green-700',
+	failed: 'bg-red-50 text-red-600',
+	expired: 'bg-zinc-100 text-zinc-600'
+};
+
+export function paymentStatusClass(status: string): string {
+	return PAYMENT_STATUS_STYLES[status] ?? 'bg-zinc-100 text-zinc-600';
+}
+
 export function publishedClass(isPublished: boolean): string {
 	return isPublished ? 'bg-green-50 text-green-700' : 'bg-zinc-100 text-zinc-500';
 }

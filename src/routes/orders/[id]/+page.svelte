@@ -3,7 +3,7 @@
 	import { ApiError } from '$lib/api/client';
 	import { updateStatus } from '$lib/api/orders';
 	import Badge from '$lib/components/Badge.svelte';
-	import { formatDate, formatPrice, orderStatusClass } from '$lib/format';
+	import { formatDate, formatPrice, orderStatusClass, paymentStatusClass } from '$lib/format';
 	import { auth } from '$lib/stores/auth.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
 	import type { PageProps } from './$types';
@@ -51,7 +51,20 @@
 					<h1 class="font-mono text-lg font-bold text-zinc-900">{order.order_number}</h1>
 					<p class="text-xs text-zinc-500">{formatDate(order.created_at)}</p>
 				</div>
-				<Badge class={orderStatusClass(order.status)}>{order.status}</Badge>
+				<div class="flex flex-col items-end gap-1.5">
+					<Badge class={orderStatusClass(order.status)}>{order.status}</Badge>
+					<Badge class={paymentStatusClass(order.payment_status)}>{order.payment_status}</Badge>
+				</div>
+			</div>
+
+			<div class="mb-4 border-t border-zinc-100 pt-4">
+				<h2 class="mb-2 text-sm font-semibold text-zinc-700">Pembayaran</h2>
+				<p class="text-sm text-zinc-600">
+					Metode: {order.payment_method ?? '—'}
+				</p>
+				<p class="text-sm text-zinc-600">
+					Dibayar: {order.paid_at ? formatDate(order.paid_at) : '—'}
+				</p>
 			</div>
 
 			<div class="mb-4 border-t border-zinc-100 pt-4">

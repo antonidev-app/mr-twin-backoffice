@@ -76,6 +76,9 @@ export type AdminOrder = {
 	id: number;
 	order_number: string;
 	status: string;
+	payment_status: string;
+	payment_method: string | null;
+	paid_at: string | null;
 	total_amount: number;
 	shipping_name: string;
 	shipping_phone: string;
