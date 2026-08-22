@@ -3,6 +3,7 @@
 	import { ApiError } from '$lib/api/client';
 	import { aiDraft, deleteImage, update, uploadImage } from '$lib/api/products';
 	import Badge from '$lib/components/Badge.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { formatPrice, publishedClass } from '$lib/format';
 	import { auth } from '$lib/stores/auth.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
@@ -133,7 +134,7 @@
 			</Badge>
 		</div>
 
-		<div class="mb-6 rounded-lg bg-white p-5">
+		<div class="mb-6 rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 			<h2 class="mb-3 text-sm font-semibold text-zinc-700">Data Accurate (read-only)</h2>
 			<div class="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
 				<div>
@@ -165,17 +166,12 @@
 			</div>
 		</div>
 
-		<form onsubmit={save} class="mb-6 space-y-4 rounded-lg bg-white p-5">
+		<form onsubmit={save} class="mb-6 space-y-4 rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 			<div class="flex items-center justify-between gap-4">
 				<h2 class="text-sm font-semibold text-zinc-700">Kurasi Storefront</h2>
-				<button
-					type="button"
-					disabled={drafting}
-					onclick={runAiDraft}
-					class="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50"
-				>
+				<Button type="button" disabled={drafting} onclick={runAiDraft} variant="outline">
 					{drafting ? 'Menghasilkan draft...' : '✨ Draft dengan AI'}
-				</button>
+				</Button>
 			</div>
 
 			<label class="flex items-center gap-2 text-sm text-zinc-700">
@@ -184,7 +180,7 @@
 			</label>
 
 			<div>
-				<label for="display_name" class="mb-1 block text-sm font-medium text-zinc-700"
+				<label for="display_name" class="mb-1.5 block text-sm font-medium text-zinc-700"
 					>Nama Tampilan (opsional)</label
 				>
 				<input
@@ -192,19 +188,19 @@
 					type="text"
 					bind:value={displayName}
 					placeholder={product.name}
-					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 				/>
 			</div>
 
 			<div>
-				<label for="description" class="mb-1 block text-sm font-medium text-zinc-700"
+				<label for="description" class="mb-1.5 block text-sm font-medium text-zinc-700"
 					>Deskripsi</label
 				>
 				<textarea
 					id="description"
 					rows="7"
 					bind:value={description}
-					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+					class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 				></textarea>
 				{#if aiSources && aiSources.length > 0}
 					<div class="mt-1 text-xs text-zinc-500">
@@ -219,49 +215,45 @@
 
 			<div class="grid grid-cols-2 gap-4">
 				<div>
-					<label for="display_category" class="mb-1 block text-sm font-medium text-zinc-700"
+					<label for="display_category" class="mb-1.5 block text-sm font-medium text-zinc-700"
 						>Kategori Storefront</label
 					>
 					<input
 						id="display_category"
 						type="text"
 						bind:value={displayCategory}
-						class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+						class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 					/>
 				</div>
 				<div>
-					<label for="brand" class="mb-1 block text-sm font-medium text-zinc-700">Brand</label>
+					<label for="brand" class="mb-1.5 block text-sm font-medium text-zinc-700">Brand</label>
 					<input
 						id="brand"
 						type="text"
 						bind:value={brand}
-						class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+						class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 					/>
 				</div>
 			</div>
 
 			<div>
-				<label for="sort_order" class="mb-1 block text-sm font-medium text-zinc-700"
+				<label for="sort_order" class="mb-1.5 block text-sm font-medium text-zinc-700"
 					>Urutan Tampil</label
 				>
 				<input
 					id="sort_order"
 					type="number"
 					bind:value={sortOrder}
-					class="w-32 rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+					class="w-32 rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 				/>
 			</div>
 
-			<button
-				type="submit"
-				disabled={saving}
-				class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
-			>
+			<Button type="submit" disabled={saving}>
 				{saving ? 'Menyimpan...' : 'Simpan Perubahan'}
-			</button>
+			</Button>
 		</form>
 
-		<div class="rounded-lg bg-white p-5">
+		<div class="rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 			<h2 class="mb-3 text-sm font-semibold text-zinc-700">Gambar Produk</h2>
 
 			{#if product.product_display && product.product_display.images.length > 0}

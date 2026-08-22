@@ -4,6 +4,6 @@
 	let { class: className = '', children }: { class?: string; children: Snippet } = $props();
 </script>
 
-<span class="rounded-full px-2 py-0.5 text-xs font-medium capitalize {className}">
+<span class="rounded-full px-2.5 py-1 text-xs font-medium tracking-wide capitalize {className}">
 	{@render children()}
 </span>

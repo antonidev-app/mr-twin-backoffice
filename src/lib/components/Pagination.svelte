@@ -51,7 +51,7 @@
 					onclick={() => onNavigate(p)}
 					class="h-8 w-8 rounded-lg text-sm font-medium transition active:scale-[0.98] {meta.current_page ===
 					p
-						? 'bg-zinc-900 text-white'
+						? 'bg-accent-600 text-white'
 						: 'text-zinc-600 hover:bg-zinc-100'}"
 				>
 					{p}

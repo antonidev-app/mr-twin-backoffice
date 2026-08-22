@@ -9,7 +9,7 @@
 	{#each toast.items as item (item.id)}
 		<div
 			transition:fly|local={{ y: 16, duration: 200 }}
-			class="pointer-events-auto flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg {item.variant ===
+			class="pointer-events-auto flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lifted {item.variant ===
 			'success'
 				? 'bg-zinc-900'
 				: 'bg-red-600'}"

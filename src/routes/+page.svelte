@@ -6,6 +6,7 @@
 	import { triggerCategories, triggerItems } from '$lib/api/sync';
 	import type { AccurateDatabase } from '$lib/api/types';
 	import Badge from '$lib/components/Badge.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { formatDate, syncStatusClass } from '$lib/format';
 	import { auth } from '$lib/stores/auth.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
@@ -79,10 +80,10 @@
 <div class="space-y-6 px-8 py-8">
 	<h1 class="text-2xl font-semibold tracking-tight text-zinc-900">Dashboard</h1>
 
-	<section class="rounded-lg bg-white p-5">
+	<section class="rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 		<h2 class="mb-4 text-sm font-semibold text-zinc-700">Koneksi Accurate</h2>
 
-		<div class="mb-4 grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
+		<div class="mb-5 grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
 			<div>
 				<p class="text-xs text-zinc-500">Status</p>
 				<p class="font-medium {data.connection.connected ? 'text-green-700' : 'text-red-600'}">
@@ -106,23 +107,18 @@
 		</div>
 
 		<div class="flex flex-wrap items-center gap-3">
-			<a
+			<Button
 				href="{PUBLIC_API_BASE_URL}/accurate/connect"
 				target="_blank"
 				rel="noopener noreferrer external"
-				class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98]"
 			>
 				Hubungkan ke Accurate
-			</a>
-			<button
-				onclick={loadDatabases}
-				disabled={loadingDatabases}
-				class="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50"
-			>
+			</Button>
+			<Button onclick={loadDatabases} disabled={loadingDatabases} variant="outline">
 				{loadingDatabases ? 'Memuat...' : 'Muat Daftar Database'}
-			</button>
+			</Button>
 		</div>
-		<p class="mt-2 text-xs text-zinc-500">
+		<p class="mt-3 text-xs text-zinc-500">
 			Setelah login Accurate berhasil di tab baru, kembali ke sini dan klik "Muat Daftar Database".
 		</p>
 
@@ -131,30 +127,26 @@
 				{#each databases as db (db.id)}
 					<div class="flex items-center justify-between rounded-lg bg-zinc-50 p-3 text-sm">
 						<span class="font-medium text-zinc-800">{db.alias}</span>
-						<button
-							onclick={() => pickDatabase(db)}
-							disabled={selecting}
-							class="rounded-lg bg-accent-400 px-3 py-1.5 text-xs font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
-						>
+						<Button onclick={() => pickDatabase(db)} disabled={selecting} class="px-3 py-1.5 text-xs">
 							Pilih
-						</button>
+						</Button>
 					</div>
 				{/each}
 			</div>
 		{/if}
 	</section>
 
-	<section class="rounded-lg bg-white p-5">
+	<section class="rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 		<h2 class="mb-4 text-sm font-semibold text-zinc-700">Sinkronisasi Data</h2>
 
-		<div class="mb-4 grid grid-cols-2 gap-4 text-sm">
-			<div class="rounded-lg bg-zinc-50 p-3">
+		<div class="mb-5 grid grid-cols-2 gap-4 text-sm">
+			<div class="rounded-lg bg-zinc-50 p-4">
 				<p class="text-xs text-zinc-500">Total Item Tersinkron</p>
 				<p class="font-mono text-lg font-semibold text-zinc-900 tabular-nums">
 					{data.syncStatus.items.total}
 				</p>
 			</div>
-			<div class="rounded-lg bg-zinc-50 p-3">
+			<div class="rounded-lg bg-zinc-50 p-4">
 				<p class="text-xs text-zinc-500">Total Kategori Tersinkron</p>
 				<p class="font-mono text-lg font-semibold text-zinc-900 tabular-nums">
 					{data.syncStatus.categories.total}
@@ -162,21 +154,13 @@
 			</div>
 		</div>
 
-		<div class="mb-4 flex flex-wrap gap-3">
-			<button
-				onclick={runTriggerItems}
-				disabled={triggeringItems}
-				class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
-			>
+		<div class="mb-5 flex flex-wrap gap-3">
+			<Button onclick={runTriggerItems} disabled={triggeringItems}>
 				{triggeringItems ? 'Menjadwalkan...' : 'Sync Item Sekarang'}
-			</button>
-			<button
-				onclick={runTriggerCategories}
-				disabled={triggeringCategories}
-				class="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50"
-			>
+			</Button>
+			<Button onclick={runTriggerCategories} disabled={triggeringCategories} variant="outline">
 				{triggeringCategories ? 'Menjadwalkan...' : 'Sync Kategori Sekarang'}
-			</button>
+			</Button>
 		</div>
 
 		<h3 class="mb-2 text-xs font-semibold tracking-wide text-zinc-500 uppercase">
@@ -198,12 +182,12 @@
 					<tbody>
 						{#each data.syncLogs.data.slice(0, 10) as log (log.id)}
 							<tr class="border-t border-zinc-100">
-								<td class="py-2 capitalize">{log.type}</td>
-								<td class="py-2">
+								<td class="py-2.5 capitalize">{log.type}</td>
+								<td class="py-2.5">
 									<Badge class={syncStatusClass(log.status)}>{log.status}</Badge>
 								</td>
-								<td class="py-2 font-mono tabular-nums">{log.synced_count ?? '—'}</td>
-								<td class="py-2 text-zinc-500">{formatDate(log.started_at)}</td>
+								<td class="py-2.5 font-mono tabular-nums">{log.synced_count ?? '—'}</td>
+								<td class="py-2.5 text-zinc-500">{formatDate(log.started_at)}</td>
 							</tr>
 						{/each}
 					</tbody>

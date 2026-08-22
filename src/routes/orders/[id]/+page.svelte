@@ -3,6 +3,7 @@
 	import { ApiError } from '$lib/api/client';
 	import { updateStatus } from '$lib/api/orders';
 	import Badge from '$lib/components/Badge.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { formatDate, formatPrice, orderStatusClass, paymentStatusClass } from '$lib/format';
 	import { auth } from '$lib/stores/auth.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
@@ -45,7 +46,7 @@
 			&larr; Kembali ke Pesanan
 		</a>
 
-		<div class="rounded-lg bg-white p-5">
+		<div class="rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 			<div class="mb-4 flex items-start justify-between">
 				<div>
 					<h1 class="font-mono text-lg font-bold text-zinc-900">{order.order_number}</h1>
@@ -104,7 +105,7 @@
 				<div class="flex items-center gap-3">
 					<select
 						bind:value={newStatus}
-						class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+						class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 					>
 						<option value="pending">Pending</option>
 						<option value="processing">Processing</option>
@@ -112,13 +113,9 @@
 						<option value="completed">Completed</option>
 						<option value="cancelled">Cancelled</option>
 					</select>
-					<button
-						onclick={saveStatus}
-						disabled={updating || newStatus === order.status}
-						class="rounded-lg bg-accent-400 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-accent-300 active:scale-[0.98] disabled:opacity-50"
-					>
+					<Button onclick={saveStatus} disabled={updating || newStatus === order.status}>
 						{updating ? 'Menyimpan...' : 'Update Status'}
-					</button>
+					</Button>
 				</div>
 			</div>
 		</div>

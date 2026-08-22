@@ -3,6 +3,7 @@
 	import { resolve } from '$app/paths';
 	import Badge from '$lib/components/Badge.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { formatPrice, publishedClass } from '$lib/format';
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
 	import type { PageProps } from './$types';
@@ -46,7 +47,10 @@
 	<h1 class="mb-1 text-2xl font-semibold tracking-tight text-zinc-900">Produk</h1>
 	<p class="mb-6 text-sm text-zinc-500">{data.products.meta.total} item tersinkron dari Accurate</p>
 
-	<form onsubmit={applyFilters} class="mb-6 flex flex-wrap items-end gap-3 rounded-lg bg-white p-4">
+	<form
+		onsubmit={applyFilters}
+		class="mb-6 flex flex-wrap items-end gap-3 rounded-xl border border-zinc-100 bg-white p-4 shadow-resting"
+	>
 		<div class="flex-1 basis-48">
 			<label for="q" class="mb-1 block text-xs font-medium text-zinc-500">Cari</label>
 			<input
@@ -54,7 +58,7 @@
 				type="text"
 				placeholder="Nama atau SKU..."
 				bind:value={q}
-				class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+				class="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 			/>
 		</div>
 		<div>
@@ -62,7 +66,7 @@
 			<select
 				id="is_published"
 				bind:value={isPublished}
-				class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 focus:outline-none"
+				class="rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 focus:outline-none"
 			>
 				<option value="">Semua</option>
 				<option value="true">Published</option>
@@ -73,28 +77,23 @@
 			<input type="checkbox" bind:checked={suspended} class="accent-accent-600" />
 			Suspended saja
 		</label>
-		<button
-			type="submit"
-			class="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 active:scale-[0.98]"
-		>
-			Terapkan
-		</button>
+		<Button type="submit" variant="dark">Terapkan</Button>
 	</form>
 
 	{#if data.products.data.length === 0}
 		<p class="text-sm text-zinc-500">Tidak ada produk ditemukan.</p>
 	{:else}
-		<div class="overflow-x-auto rounded-lg bg-white">
+		<div class="overflow-x-auto rounded-xl border border-zinc-100 bg-white shadow-resting">
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-zinc-200 bg-zinc-50 text-xs text-zinc-500">
-						<th class="px-4 py-2 font-medium">Nama</th>
-						<th class="px-4 py-2 font-medium">SKU</th>
-						<th class="px-4 py-2 font-medium">Harga</th>
-						<th class="px-4 py-2 font-medium">Stok</th>
-						<th class="px-4 py-2 font-medium">Kategori</th>
-						<th class="px-4 py-2 font-medium">Status</th>
-						<th class="px-4 py-2"></th>
+						<th class="px-4 py-2.5 font-medium">Nama</th>
+						<th class="px-4 py-2.5 font-medium">SKU</th>
+						<th class="px-4 py-2.5 font-medium">Harga</th>
+						<th class="px-4 py-2.5 font-medium">Stok</th>
+						<th class="px-4 py-2.5 font-medium">Kategori</th>
+						<th class="px-4 py-2.5 font-medium">Status</th>
+						<th class="px-4 py-2.5"></th>
 					</tr>
 				</thead>
 				<tbody>

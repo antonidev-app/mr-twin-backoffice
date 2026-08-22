@@ -11,11 +11,11 @@ export function formatDate(value: string): string {
 }
 
 const ORDER_STATUS_STYLES: Record<string, string> = {
-	pending: 'bg-accent-50 text-accent-800',
-	processing: 'bg-blue-50 text-blue-700',
-	shipped: 'bg-purple-50 text-purple-700',
-	completed: 'bg-green-50 text-green-700',
-	cancelled: 'bg-red-50 text-red-600'
+	pending: 'bg-warning-100 text-warning-800',
+	processing: 'bg-blue-100 text-blue-700',
+	shipped: 'bg-purple-100 text-purple-700',
+	completed: 'bg-green-100 text-green-700',
+	cancelled: 'bg-red-100 text-red-700'
 };
 
 export function orderStatusClass(status: string): string {
@@ -23,9 +23,9 @@ export function orderStatusClass(status: string): string {
 }
 
 const PAYMENT_STATUS_STYLES: Record<string, string> = {
-	unpaid: 'bg-accent-50 text-accent-800',
-	paid: 'bg-green-50 text-green-700',
-	failed: 'bg-red-50 text-red-600',
+	unpaid: 'bg-warning-100 text-warning-800',
+	paid: 'bg-green-100 text-green-700',
+	failed: 'bg-red-100 text-red-700',
 	expired: 'bg-zinc-100 text-zinc-600'
 };
 
@@ -34,13 +34,13 @@ export function paymentStatusClass(status: string): string {
 }
 
 export function publishedClass(isPublished: boolean): string {
-	return isPublished ? 'bg-green-50 text-green-700' : 'bg-zinc-100 text-zinc-500';
+	return isPublished ? 'bg-green-100 text-green-700' : 'bg-zinc-100 text-zinc-500';
 }
 
 const SYNC_STATUS_STYLES: Record<string, string> = {
-	running: 'bg-accent-50 text-accent-800',
-	success: 'bg-green-50 text-green-700',
-	failed: 'bg-red-50 text-red-600'
+	running: 'bg-warning-100 text-warning-800',
+	success: 'bg-green-100 text-green-700',
+	failed: 'bg-red-100 text-red-700'
 };
 
 export function syncStatusClass(status: string): string {
