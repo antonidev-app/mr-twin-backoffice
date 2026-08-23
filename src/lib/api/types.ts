@@ -88,6 +88,16 @@ export type AdminOrder = {
 	items: AdminOrderItem[];
 };
 
+export type AdminBanner = {
+	id: number;
+	title: string;
+	image: string | null;
+	link_url: string | null;
+	is_active: boolean;
+	sort_order: number;
+	created_at: string;
+};
+
 export type SyncLog = {
 	id: number;
 	type: 'items' | 'categories';
