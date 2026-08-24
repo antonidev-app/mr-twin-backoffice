@@ -166,6 +166,24 @@
 			</div>
 		</div>
 
+		{#if product.tier_prices && product.tier_prices.length > 0}
+			<div class="mb-6 rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
+				<h2 class="mb-3 text-sm font-semibold text-zinc-700">
+					Harga per Tier (read-only, dari Accurate)
+				</h2>
+				<div class="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+					{#each product.tier_prices as tierPrice (tierPrice.price_category)}
+						<div class="rounded-lg bg-zinc-50 p-3">
+							<p class="text-xs text-zinc-500">{tierPrice.price_category ?? 'Tanpa nama'}</p>
+							<p class="font-mono font-medium text-zinc-900 tabular-nums">
+								{formatPrice(tierPrice.price)}
+							</p>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
 		<form onsubmit={save} class="mb-6 space-y-4 rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 			<div class="flex items-center justify-between gap-4">
 				<h2 class="text-sm font-semibold text-zinc-700">Kurasi Storefront</h2>

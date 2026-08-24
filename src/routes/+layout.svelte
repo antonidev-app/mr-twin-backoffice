@@ -15,7 +15,8 @@
 		{ href: resolve('/'), label: 'Dashboard', icon: 'dashboard' as const },
 		{ href: resolve('/products'), label: 'Produk', icon: 'products' as const },
 		{ href: resolve('/banners'), label: 'Banner', icon: 'banner' as const },
-		{ href: resolve('/orders'), label: 'Pesanan', icon: 'orders' as const }
+		{ href: resolve('/orders'), label: 'Pesanan', icon: 'orders' as const },
+		{ href: resolve('/customers'), label: 'Customer', icon: 'customers' as const }
 	];
 
 	function handleLogout() {

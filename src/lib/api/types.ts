@@ -44,6 +44,11 @@ export type AiDraft = {
 	sources: string[];
 };
 
+export type TierPrice = {
+	price_category: string | null;
+	price: number;
+};
+
 export type AdminProduct = {
 	id: number;
 	accurate_id: number;
@@ -55,6 +60,7 @@ export type AdminProduct = {
 	suspended: boolean;
 	last_synced_at: string | null;
 	product_display: ProductCuration | null;
+	tier_prices?: TierPrice[];
 };
 
 export type AdminOrderItem = {
@@ -65,11 +71,20 @@ export type AdminOrderItem = {
 	subtotal: number;
 };
 
+export type PriceCategory = {
+	id: number;
+	accurate_id: number;
+	name: string | null;
+	is_default: boolean;
+};
+
 export type AdminCustomer = {
 	id: number;
 	name: string;
 	email: string;
 	phone: string | null;
+	price_category_id?: number | null;
+	price_category?: PriceCategory | null;
 };
 
 export type AdminOrder = {
@@ -100,7 +115,7 @@ export type AdminBanner = {
 
 export type SyncLog = {
 	id: number;
-	type: 'items' | 'categories';
+	type: 'items' | 'categories' | 'price_categories';
 	status: 'running' | 'success' | 'failed';
 	synced_count: number | null;
 	error_message: string | null;
@@ -111,6 +126,7 @@ export type SyncLog = {
 export type SyncStatus = {
 	items: { total: number; last_log: SyncLog | null };
 	categories: { total: number; last_log: SyncLog | null };
+	price_categories: { total: number; last_log: SyncLog | null };
 };
 
 export type ConnectionStatus = {

@@ -3,7 +3,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { listDatabases, selectDatabase } from '$lib/api/accurate';
 	import { ApiError } from '$lib/api/client';
-	import { triggerCategories, triggerItems } from '$lib/api/sync';
+	import { triggerCategories, triggerItems, triggerPriceCategories } from '$lib/api/sync';
 	import type { AccurateDatabase } from '$lib/api/types';
 	import Badge from '$lib/components/Badge.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -19,6 +19,7 @@
 	let selecting = $state(false);
 	let triggeringItems = $state(false);
 	let triggeringCategories = $state(false);
+	let triggeringPriceCategories = $state(false);
 
 	async function loadDatabases() {
 		loadingDatabases = true;
@@ -69,6 +70,19 @@
 			toast.show(err instanceof ApiError ? err.message : 'Gagal menjadwalkan sync.', 'error');
 		} finally {
 			triggeringCategories = false;
+		}
+	}
+
+	async function runTriggerPriceCategories() {
+		triggeringPriceCategories = true;
+		try {
+			await triggerPriceCategories(auth.token!);
+			toast.show('Sync price category dijadwalkan. Pastikan queue worker jalan untuk memprosesnya.');
+			await invalidateAll();
+		} catch (err) {
+			toast.show(err instanceof ApiError ? err.message : 'Gagal menjadwalkan sync.', 'error');
+		} finally {
+			triggeringPriceCategories = false;
 		}
 	}
 </script>
@@ -139,7 +153,7 @@
 	<section class="rounded-2xl border border-zinc-100 bg-white p-6 shadow-resting">
 		<h2 class="mb-4 text-sm font-semibold text-zinc-700">Sinkronisasi Data</h2>
 
-		<div class="mb-5 grid grid-cols-2 gap-4 text-sm">
+		<div class="mb-5 grid grid-cols-3 gap-4 text-sm">
 			<div class="rounded-lg bg-zinc-50 p-4">
 				<p class="text-xs text-zinc-500">Total Item Tersinkron</p>
 				<p class="font-mono text-lg font-semibold text-zinc-900 tabular-nums">
@@ -152,6 +166,12 @@
 					{data.syncStatus.categories.total}
 				</p>
 			</div>
+			<div class="rounded-lg bg-zinc-50 p-4">
+				<p class="text-xs text-zinc-500">Total Price Category Tersinkron</p>
+				<p class="font-mono text-lg font-semibold text-zinc-900 tabular-nums">
+					{data.syncStatus.price_categories.total}
+				</p>
+			</div>
 		</div>
 
 		<div class="mb-5 flex flex-wrap gap-3">
@@ -160,6 +180,13 @@
 			</Button>
 			<Button onclick={runTriggerCategories} disabled={triggeringCategories} variant="outline">
 				{triggeringCategories ? 'Menjadwalkan...' : 'Sync Kategori Sekarang'}
+			</Button>
+			<Button
+				onclick={runTriggerPriceCategories}
+				disabled={triggeringPriceCategories}
+				variant="outline"
+			>
+				{triggeringPriceCategories ? 'Menjadwalkan...' : 'Sync Price Category Sekarang'}
 			</Button>
 		</div>
 

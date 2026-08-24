@@ -17,6 +17,14 @@ export function triggerCategories(token: string, fetchFn?: typeof fetch) {
 	});
 }
 
+export function triggerPriceCategories(token: string, fetchFn?: typeof fetch) {
+	return apiFetch<{ message: string }>('/api/admin/sync/price-categories', {
+		method: 'POST',
+		token,
+		fetch: fetchFn
+	});
+}
+
 export function logs(token: string, fetchFn?: typeof fetch) {
 	return apiFetch<Paginated<SyncLog>>('/api/admin/sync/logs', { token, fetch: fetchFn });
 }

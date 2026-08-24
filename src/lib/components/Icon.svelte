@@ -1,5 +1,5 @@
 <script lang="ts">
-	type Name = 'dashboard' | 'products' | 'banner' | 'orders' | 'logout';
+	type Name = 'dashboard' | 'products' | 'banner' | 'orders' | 'customers' | 'logout';
 
 	let { name, class: className = 'h-4.5 w-4.5' }: { name: Name; class?: string } = $props();
 </script>
@@ -35,6 +35,13 @@
 			d="M6 3.75h9.75L18.75 6.75V19.5a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V4.5a.75.75 0 0 1 .75-.75Z"
 		/>
 		<path stroke-linecap="round" stroke-linejoin="round" d="M9 9.75h6M9 13.25h6M9 16.75h3.5" />
+	</svg>
+{:else if name === 'customers'}
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class={className}>
+		<circle cx="9" cy="8" r="3" />
+		<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 19.5a5.25 5.25 0 0 1 10.5 0" />
+		<path stroke-linecap="round" stroke-linejoin="round" d="M15.5 5.5a3 3 0 0 1 0 5.8" />
+		<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 14.5a5.2 5.2 0 0 1 3.75 5" />
 	</svg>
 {:else if name === 'logout'}
 	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class={className}>
